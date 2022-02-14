@@ -25,7 +25,7 @@ public class PrimeNumbers {
                 }
             }
         }
-
+        // i < n or i <  primes.length
         for (int i = 2; i < n; i++) {
             if(primes[i] == false) {
                 primeCount++;
