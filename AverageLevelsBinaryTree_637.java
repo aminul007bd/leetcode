@@ -44,8 +44,9 @@ public class AverageLevelsBinaryTree_637 {
     }
 
     public static void main(String[] args) {
-//        double[] root = {3,9,20,15,7};
-//        var result = averageOfLevels(root);
-//        System.out.println();
+       double[] root = {3,9,20,15,7};
+       var result = averageOfLevels(root);
+       System.out.println();
     }
+
 }

@@ -7,9 +7,9 @@ public class PacificAtlanticWaterFlow_417 {
 
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
         // check if input is empty
-        if(heights.length == null || heights[0].length == null){
-            return new ArrayList<>();
-        }
+//        if(heights.length == null || heights[0].length != null){
+//            return new ArrayList<>();
+//        }
 
         // save initial values to parameters
         numRows = heights.length;
