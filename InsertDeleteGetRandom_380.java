@@ -25,5 +25,57 @@ randomizedSet.insert(2); // 2 was already in the set, so return false.
 randomizedSet.getRandom(); // Since 2 is the only number in the set, getRandom() will always return 2.
 */
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 public class InsertDeleteGetRandom_380 {
+
+    class RandomizedSet {
+        private ArrayList<Integer> list;
+        private Map<Integer, Integer> map;
+        Random rand;
+
+        public RandomizedSet() {
+            list = new ArrayList<>();
+            map = new HashMap<>();
+            rand = new Random();
+        }
+
+        public boolean search(int val) {
+            return map.containsKey(val);
+        }
+
+        public boolean insert(int val) {
+            if (search(val)) return false;
+
+            list.add(val);
+            map.put(val, list.size() - 1); // Updates the map with val and its index.
+            return true;
+        }
+
+        public boolean remove(int val) {
+            if (!search(val)) return false;
+
+            int index = map.get(val);
+            int lastElement = list.get(list.size() - 1);
+
+            // Swap the element to be removed with the last element
+            list.set(index, lastElement);
+            map.put(lastElement, index);
+
+            // Remove the last element from the list and map
+            list.remove(list.size() - 1);
+            map.remove(val);
+
+            return true;
+        }
+
+        public int getRandom() {
+            return list.get(rand.nextInt(list.size()));
+        }
+    }
+
+
 }
