@@ -11,18 +11,13 @@ public class maxProfit_121 {
         // keep track of the largest difference so far
         int minSoFar = Integer.MAX_VALUE;
 
-        for(int i = 0; i< price.length; i++) {
-            if(price[i] < minSoFar) {
-                minSoFar = price[i];
+        for (int j : price) {
+            if (j < minSoFar) {
+                minSoFar = j;
             } else {
-                largestDifference = Math.max(largestDifference, price[i] - minSoFar);
+                largestDifference = Math.max(largestDifference, j - minSoFar);
             }
         }
         return largestDifference;
-    }
-    public static void main(String[] args) {
-        int [] price = {7,6,4,3,1};
-        var result = maxProfit(price);
-        System.out.println(result);
     }
 }

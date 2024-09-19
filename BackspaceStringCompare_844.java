@@ -8,33 +8,32 @@ public class BackspaceStringCompare_844 {
         while (i >= 0 || j >= 0) {
             // find position of new possible char in build (s)
             while (i >= 0) {
-                if(s.charAt(i) == '#') {skipS++; i--;}
-                else if(skipS > 0) { skipS--; i--;}
-                else break;
+                if (s.charAt(i) == '#') {
+                    skipS++;
+                    i--;
+                } else if (skipS > 0) {
+                    skipS--;
+                    i--;
+                } else break;
             }
             while (j >= 0) {
-                if(t.charAt(j) == '#') {skipT++; j--;}
-                else if(skipT > 0) { skipT--; j--;}
-                else break;
+                if (t.charAt(j) == '#') {
+                    skipT++;
+                    j--;
+                } else if (skipT > 0) {
+                    skipT--;
+                    j--;
+                } else break;
             }
             // If two actual characters are different
-            if(i >= 0 && j >=0 && s.charAt(i) != t.charAt(j)) {
+            if (i >= 0 && j >= 0 && s.charAt(i) != t.charAt(j)) {
                 return false;
             }
             // if expecting to compare char vs nothing
-            if((i >= 0) != (j >= 0)) return false;
-            i--; j--;
+            if ((i >= 0) != (j >= 0)) return false;
+            i--;
+            j--;
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        String s = "bbbextm";
-        String t = "bbb#extm";
-
-        var result = backspaceCompare(s, t);
-
-        System.out.println(result);
-
     }
 }
