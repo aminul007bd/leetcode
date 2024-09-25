@@ -1,65 +1,83 @@
+/*
+You are given the heads of two sorted linked lists list1 and list2.
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+Return the head of the merged linked list.
+
+Example 1:
+Input: list1 = [1,2,4], list2 = [1,3,4]
+Output: [1,1,2,3,4,4]
+*/
 public class MergeTwoSortedLists_21 {
-
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
-    // Time complexity O(n)
-    // Space complexity O(n)
-    public ListNode mergeTwoListsR(ListNode list1, ListNode list2) {
-        // when one list is finished, to handle null pointer exception
-
-        if (list1 == null) return list2;
-        if (list2 == null) return list1;
-
-        // compare the heads of list1 and list2
-        ListNode head;
-        if (list1.val <= list2.val) {
-            head = list1;
-            list1 = list1.next;
-        } else {
-            head = list2;
-            list2 = list2.next;
-        }
-
-        head.next = mergeTwoListsR(list1, list2);
-
-        return head;
-    }
-
     // Time complexity O(n)
     // Space complexity O(1)
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode preHead = new ListNode(-1);
-        ListNode prev = preHead;
-        while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                prev.next = l1;
-                l1 = l1.next;
-            } else {
-                prev.next = l2;
-                l2 = l2.next;
-            }
-            prev = prev.next;
-        }
-        prev.next = l1 == null ? l2 : l1;
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummyHead = new ListNode(-1); // Step 1: Create a dummy node 'preHead' to act as the starting point of the merged list.
+        ListNode prev = dummyHead; // Step 2: Initialize a pointer 'prev' that will be used to build the merged list.
 
-        // At least one of l1 and l2 can still have nodes at this point, so connect
-        // the non-null list to the end of the merged list.
-        return preHead.next;
+        while (list1 != null && list2 != null) { // Step 3: Loop until one of the lists (l1 or l2) is fully traversed.
+
+            if (list1.val < list2.val) { // Step 4: Compare the current values of l1 and l2.
+                prev.next = list1; // If l1's value is smaller, attach l1 to the merged list.
+                list1 = list1.next; // Move l1 to the next node.
+            } else {
+                prev.next = list2; // If l2's value is smaller or equal, attach l2 to the merged list.
+                list2 = list2.next; // Move l2 to the next node.
+            }
+            prev = prev.next; // Move the 'prev' pointer to the newly added node.
+        }
+        // If one list is exhausted, attach the remaining elements of the other list.
+        prev.next = list1 == null ? list2 : list1; // Step 5: Attach the remaining nodes of l1 or l2 to the merged list.
+
+        return dummyHead.next; // Step 6: Return the merged list starting from the node after 'preHead'.
     }
 
 }
+
+/*Walkthrough Example
+Consider the following two sorted linked lists:
+
+l1: 1 → 3 → 5
+l2: 2 → 4 → 6
+Initial State:
+
+preHead points to a new node with value -1.
+prev points to preHead.
+First Iteration:
+
+Compare l1.val (1) with l2.val (2).
+Since 1 < 2, attach l1 (node with value 1) to the merged list.
+Move l1 to the next node (3).
+Move prev to the node with value 1.
+Second Iteration:
+
+Compare l1.val (3) with l2.val (2).
+Since 3 > 2, attach l2 (node with value 2) to the merged list.
+Move l2 to the next node (4).
+Move prev to the node with value 2.
+Third Iteration:
+
+Compare l1.val (3) with l2.val (4).
+Since 3 < 4, attach l1 (node with value 3) to the merged list.
+Move l1 to the next node (5).
+Move prev to the node with value 3.
+Fourth Iteration:
+
+Compare l1.val (5) with l2.val (4).
+Since 5 > 4, attach l2 (node with value 4) to the merged list.
+Move l2 to the next node (6).
+Move prev to the node with value 4.
+Fifth Iteration:
+
+Compare l1.val (5) with l2.val (6).
+Since 5 < 6, attach l1 (node with value 5) to the merged list.
+Move l1 to null (end of list).
+Move prev to the node with value 5.
+End of Loop:
+
+l1 is now null, so attach the remaining l2 (node with value 6) to the merged list.
+Final State:
+
+The merged linked list is: 1 → 2 → 3 → 4 → 5 → 6.
+Return:
+
+Return the merged list starting from preHead.next, which gives 1 → 2 → 3 → 4 → 5 → 6.*/
